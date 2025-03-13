@@ -47,7 +47,7 @@ interface CategoriesResponse {
   };
 }
 
-const WORDPRESS_API_URL = 'https://anglersknot.wpenginepowered.com/graphql';
+const WORDPRESS_API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://anglersknot.wpenginepowered.com/graphql';
 
 /**
  * Fetch posts from WordPress GraphQL API
