@@ -20,9 +20,9 @@
         <a href="/" class="nav-link" :class="{ 'active': currentPath === '/' }">Home</a>
         <a href="/blog/" class="nav-link" :class="{ 'active': currentPath.startsWith('/blog') }">Blog</a>
         <a href="/about/" class="nav-link" :class="{ 'active': currentPath === '/about/' }">About</a>
-        <a href="/fishing-video-games/" class="nav-link" :class="{ 'active': currentPath === '/fishing-video-games/' }">Video Games</a>
-        <a href="/fishing-board-games/" class="nav-link" :class="{ 'active': currentPath === '/fishing-board-games/' }">Board Games</a>
-        <a href="/fishing-shows/" class="nav-link" :class="{ 'active': currentPath === '/fishing-shows/' }">Shows</a>
+        <a href="/video-games/" class="nav-link" :class="{ 'active': currentPath === '/video-games/' || currentPath === '/fishing-video-games/' }">Video Games</a>
+        <a href="/board-games/" class="nav-link" :class="{ 'active': currentPath === '/board-games/' || currentPath === '/fishing-board-games/' }">Board Games</a>
+        <a href="/shows/" class="nav-link" :class="{ 'active': currentPath === '/shows/' || currentPath === '/fishing-shows/' }">Shows</a>
         
         <div class="categories-dropdown">
           <button class="dropdown-toggle" @click="isCategoriesOpen = !isCategoriesOpen">

@@ -1,0 +1,256 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getPageBySlug } from '../lib/wordpress';
+
+const title = "Fishing Shows | Angler's Knot";
+const description = "Discover the best fishing TV shows, documentaries, and YouTube channels for anglers of all interests.";
+
+const page = await getPageBySlug('shows');
+---
+
+<MainLayout title={title} description={description}>
+  <div class="page-header">
+    <h1 class="page-title">Fishing Shows</h1>
+    <p class="page-subtitle">The best fishing entertainment on screen</p>
+  </div>
+  
+  <div class="content-container">
+    <div class="page-content">
+      {page ? (
+        <article set:html={page.content} />
+      ) : (
+        <section class="intro-section">
+          <p>
+            Fishing shows offer entertainment, education, and inspiration for anglers of all skill levels. Whether you're looking to learn new techniques, explore exotic fishing destinations, or simply enjoy the thrill of the catch from the comfort of your couch, there's a fishing show out there for you.
+          </p>
+          <p>
+            We've compiled a list of our favorite fishing TV shows, documentaries, and YouTube channels that showcase the best of fishing entertainment.
+          </p>
+        </section>
+      )}
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .page-header {
+    background-color: #0066cc;
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .page-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 2px 2px 0 #000;
+  }
+  
+  .page-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .intro-section {
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+  
+  .intro-section p {
+    margin-bottom: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #0066cc;
+    text-align: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .shows-section {
+    margin-bottom: 3rem;
+  }
+  
+  .shows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .show-card {
+    background-color: white;
+    border: 4px solid #000;
+    overflow: hidden;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .show-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .show-image {
+    height: 180px;
+    overflow: hidden;
+    border-bottom: 4px solid #000;
+  }
+  
+  .pixelated-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+  
+  .show-content {
+    padding: 1.5rem;
+  }
+  
+  .show-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: #0066cc;
+  }
+  
+  .show-desc {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .show-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .streaming-section {
+    margin-bottom: 3rem;
+    background-color: #f0f8ff;
+    border: 4px solid #000;
+    padding: 2rem;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .streaming-content {
+    line-height: 1.6;
+  }
+  
+  .streaming-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .streaming-card {
+    background-color: white;
+    border: 3px solid #0066cc;
+    padding: 1.5rem;
+  }
+  
+  .streaming-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: #0066cc;
+    text-align: center;
+  }
+  
+  .streaming-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .streaming-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 0.9rem;
+  }
+  
+  .streaming-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .classic-section {
+    margin-bottom: 3rem;
+  }
+  
+  .classic-content {
+    line-height: 1.6;
+  }
+  
+  .classic-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+  
+  .classic-item {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: #f0f8ff;
+    border: 2px solid #0066cc;
+  }
+  
+  .blog-section {
+    margin-bottom: 3rem;
+  }
+  
+  .blog-intro {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .blog-links {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .blog-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-weight: bold;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .blog-link:hover {
+    transform: translateY(-3px);
+  }
+  
+  .link-icon {
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2rem;
+    }
+    
+    .shows-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .streaming-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
