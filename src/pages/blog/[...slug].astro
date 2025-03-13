@@ -1,21 +1,64 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { BlogPost } from '../../components/vue';
+import { getPostBySlug, getPosts } from '../../lib/wordpress';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = await getPosts(100);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
 }
-type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug as string);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const title = `${post.title} | Angler's Knot`;
+const description = post.excerpt.replace(/<[^>]*>/g, '').substring(0, 160);
+const image = post.featuredImage?.node.sourceUrl;
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<MainLayout title={title} description={description} image={image}>
+  <div class="content-container blog-post-container">
+    <BlogPost post={post} client:load />
+    
+    <div class="post-navigation">
+      <a href="/blog/" class="back-link">← Back to Blog</a>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .blog-post-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .post-navigation {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed #ccc;
+    text-align: center;
+  }
+  
+  .back-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .back-link:hover {
+    transform: translateY(-3px);
+  }
+</style>

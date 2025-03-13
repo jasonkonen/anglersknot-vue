@@ -1,0 +1,80 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { Navigation, Footer } from '../components/vue';
+import { getCategories } from '../lib/wordpress';
+
+const categories = await getCategories();
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title = SITE_TITLE, 
+  description = SITE_DESCRIPTION, 
+  image 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Press Start 2P', monospace;
+        background-color: #f0f8ff;
+        background-image: 
+          linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+        background-size: 20px 20px;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        image-rendering: pixelated;
+      }
+      
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        min-height: calc(100vh - 300px);
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Press Start 2P', monospace;
+      }
+      
+      a {
+        color: #0066cc;
+      }
+      
+      img {
+        image-rendering: pixelated;
+        max-width: 100%;
+      }
+      
+      .content-container {
+        background-color: white;
+        border: 4px solid #000;
+        padding: 2rem;
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <Navigation client:load categories={categories} />
+    
+    <main>
+      <slot />
+    </main>
+    
+    <Footer client:load categories={categories} />
+  </body>
+</html>

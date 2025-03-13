@@ -1,0 +1,146 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { BlogList } from '../../../components/vue';
+import { searchPosts } from '../../../lib/wordpress';
+
+const query = Astro.url.searchParams.get('q') || '';
+const posts = query ? await searchPosts(query) : [];
+
+const title = `Search Results for "${query}" | Angler's Knot`;
+const description = `Search results for "${query}" on Angler's Knot blog.`;
+---
+
+<MainLayout title={title} description={description}>
+  <div class="search-header">
+    <h1 class="search-title">Search Results</h1>
+    <p class="search-description">
+      {query ? `Showing results for "${query}"` : 'Enter a search term to find posts'}
+    </p>
+    
+    <form class="search-form" action="/blog/search/" method="get">
+      <input 
+        type="text" 
+        name="q" 
+        value={query}
+        placeholder="Search posts..." 
+        class="search-input"
+        required
+      />
+      <button type="submit" class="search-button">🔍 Search</button>
+    </form>
+  </div>
+  
+  <div class="content-container">
+    {query && (
+      <div class="search-results">
+        <div class="results-count">
+          <p>{posts.length} {posts.length === 1 ? 'result' : 'results'} found</p>
+        </div>
+        
+        <BlogList posts={posts} title="Search Results" client:load />
+      </div>
+    )}
+    
+    {query && posts.length === 0 && (
+      <div class="no-results">
+        <p>No posts found matching your search term.</p>
+        <p>Try a different search term or browse our <a href="/blog/">blog posts</a>.</p>
+      </div>
+    )}
+    
+    <div class="search-navigation">
+      <a href="/blog/" class="back-link">← Back to Blog</a>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .search-header {
+    background-color: #0066cc;
+    color: white;
+    padding: 3rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+  }
+  
+  .search-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .search-description {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    text-shadow: 2px 2px 0 #000;
+  }
+  
+  .search-form {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    gap: 0.5rem;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 2px solid #000;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+  }
+  
+  .search-button {
+    background-color: #003366;
+    border: 2px solid #000;
+    color: white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+  }
+  
+  .results-count {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background-color: #f0f8ff;
+    border: 2px solid #0066cc;
+    text-align: center;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #f0f8ff;
+    border: 4px solid #000;
+    margin-bottom: 2rem;
+  }
+  
+  .no-results p {
+    margin-bottom: 1rem;
+  }
+  
+  .search-navigation {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .back-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .back-link:hover {
+    transform: translateY(-3px);
+  }
+</style>

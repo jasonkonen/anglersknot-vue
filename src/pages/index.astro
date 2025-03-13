@@ -1,49 +1,275 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import MainLayout from '../layouts/MainLayout.astro';
+import { BlogList } from '../components/vue';
+import { getPosts } from '../lib/wordpress';
+
+const posts = await getPosts(6);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<MainLayout>
+  <div class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to Angler's Knot</h1>
+      <p class="hero-subtitle">Your pixelated guide to the world of fishing</p>
+    </div>
+  </div>
+  
+  <div class="content-container">
+    <section class="intro-section">
+      <h2 class="section-title">About This Blog</h2>
+      <div class="intro-content">
+        <div class="intro-text">
+          <p>
+            Welcome to Angler's Knot, a blog dedicated to all things fishing - from tips and techniques to reviews of fishing video games, board games, and shows.
+          </p>
+          <p>
+            Whether you're a seasoned angler or just getting started, you'll find something here to enhance your fishing experience both in the real world and the digital one.
+          </p>
+          <div class="cta-buttons">
+            <a href="/about/" class="cta-button">Learn More</a>
+            <a href="/blog/" class="cta-button secondary">Read the Blog</a>
+          </div>
+        </div>
+        <div class="intro-image">
+          <div class="placeholder-image"></div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="latest-posts-section">
+      <BlogList posts={posts} title="Latest Blog Posts" client:load />
+      <div class="view-all">
+        <a href="/blog/" class="view-all-link">View All Posts →</a>
+      </div>
+    </section>
+    
+    <section class="featured-sections">
+      <h2 class="section-title">Explore More</h2>
+      <div class="featured-grid">
+        <a href="/fishing-video-games/" class="featured-card">
+          <div class="card-icon">🎮</div>
+          <h3 class="card-title">Fishing Video Games</h3>
+          <p class="card-desc">Discover the best fishing video games across all platforms</p>
+        </a>
+        
+        <a href="/fishing-board-games/" class="featured-card">
+          <div class="card-icon">🎲</div>
+          <h3 class="card-title">Fishing Board Games</h3>
+          <p class="card-desc">Tabletop games that bring the thrill of fishing to your game night</p>
+        </a>
+        
+        <a href="/fishing-shows/" class="featured-card">
+          <div class="card-icon">📺</div>
+          <h3 class="card-title">Fishing Shows</h3>
+          <p class="card-desc">Our favorite TV shows and documentaries about fishing</p>
+        </a>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<style>
+  .hero {
+    background-color: #0066cc;
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+    background-image: linear-gradient(45deg, #0055aa 25%, #0066cc 25%, #0066cc 50%, #0055aa 50%, #0055aa 75%, #0066cc 75%, #0066cc 100%);
+    background-size: 20px 20px;
+    image-rendering: pixelated;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 2px 2px 0 #000;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #0066cc;
+    text-align: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .intro-section {
+    margin-bottom: 3rem;
+    padding: 1rem;
+  }
+  
+  .intro-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .intro-text {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .intro-text p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .intro-image {
+    flex: 1;
+    min-width: 300px;
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .placeholder-image {
+    width: 100%;
+    height: 200px;
+    background-color: #0066cc;
+    background-image: linear-gradient(45deg, #0055aa 25%, transparent 25%, transparent 75%, #0055aa 75%, #0055aa),
+                      linear-gradient(45deg, #0055aa 25%, transparent 25%, transparent 75%, #0055aa 75%, #0055aa);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    position: relative;
+  }
+  
+  .placeholder-image::after {
+    content: "🎣";
+    font-size: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .pixelated-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-3px);
+  }
+  
+  .cta-button.secondary {
+    background-color: white;
+    color: #0066cc;
+  }
+  
+  .latest-posts-section {
+    margin-bottom: 3rem;
+    padding: 1rem;
+  }
+  
+  .view-all {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .view-all-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+  }
+  
+  .view-all-link:hover {
+    transform: translateY(-3px);
+  }
+  
+  .featured-sections {
+    padding: 1rem;
+  }
+  
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .featured-card {
+    display: block;
+    padding: 2rem;
+    background-color: white;
+    border: 4px solid #000;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.2s;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .featured-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 13px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #0066cc;
+  }
+  
+  .card-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+    
+    .intro-content {
+      flex-direction: column;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

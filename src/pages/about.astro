@@ -1,62 +1,233 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const title = "About | Angler's Knot";
+const description = "Learn more about Angler's Knot, a blog dedicated to fishing, fishing video games, board games, and shows.";
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<MainLayout title={title} description={description}>
+  <div class="about-header">
+    <h1 class="about-title">About Angler's Knot</h1>
+    <p class="about-subtitle">Your pixelated guide to the world of fishing</p>
+  </div>
+  
+  <div class="content-container">
+    <div class="about-content">
+      <section class="about-section">
+        <h2 class="section-title">Our Story</h2>
+        <div class="section-content">
+          <p>
+            Welcome to Angler's Knot, a blog dedicated to all things fishing - both in the real world and in the digital realm. Founded by a group of passionate anglers who also happen to be gaming enthusiasts, we aim to be your go-to resource for fishing content across various media.
+          </p>
+          <p>
+            The name "Angler's Knot" represents the connection between different fishing worlds - from traditional fishing techniques to their representation in video games, board games, and television shows. Just like a well-tied knot connects an angler to their catch, we connect fishing enthusiasts to content they'll love.
+          </p>
+          <div class="about-image">
+            <img src="/about-image.png" alt="Pixelated fishing scene" class="pixelated-image" />
+          </div>
+        </div>
+      </section>
+      
+      <section class="about-section">
+        <h2 class="section-title">What We Cover</h2>
+        <div class="section-content">
+          <div class="coverage-grid">
+            <div class="coverage-item">
+              <div class="coverage-icon">🎣</div>
+              <h3 class="coverage-title">Fishing Tips & Techniques</h3>
+              <p class="coverage-desc">
+                From beginner guides to advanced techniques, we share practical fishing advice for anglers of all skill levels.
+              </p>
+            </div>
+            
+            <div class="coverage-item">
+              <div class="coverage-icon">🎮</div>
+              <h3 class="coverage-title">Fishing Video Games</h3>
+              <p class="coverage-desc">
+                Reviews, guides, and news about fishing video games across all platforms - PC, console, and mobile.
+              </p>
+            </div>
+            
+            <div class="coverage-item">
+              <div class="coverage-icon">🎲</div>
+              <h3 class="coverage-title">Fishing Board Games</h3>
+              <p class="coverage-desc">
+                Discover tabletop games that bring the thrill of fishing to your game night with friends and family.
+              </p>
+            </div>
+            
+            <div class="coverage-item">
+              <div class="coverage-icon">📺</div>
+              <h3 class="coverage-title">Fishing Shows</h3>
+              <p class="coverage-desc">
+                Reviews and recommendations of the best fishing shows, documentaries, and YouTube channels.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="about-section">
+        <h2 class="section-title">Our Team</h2>
+        <div class="section-content">
+          <p>
+            Angler's Knot is run by a small team of fishing enthusiasts who are passionate about sharing their knowledge and experiences with the community. We come from diverse backgrounds but are united by our love for fishing and gaming.
+          </p>
+          <p>
+            We're always looking to connect with fellow anglers and gaming enthusiasts. Feel free to reach out to us with questions, suggestions, or just to say hello!
+          </p>
+        </div>
+      </section>
+      
+      <section class="about-section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="section-content">
+          <p>
+            Have a question, suggestion, or just want to say hello? We'd love to hear from you! You can reach us at:
+          </p>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <span class="contact-icon">📧</span>
+              <span class="contact-text">Email: info@anglersknot.com</span>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon">🐦</span>
+              <span class="contact-text">Twitter: @anglersknot</span>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span class="contact-text">Instagram: @anglersknot</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</MainLayout>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
-
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
-
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
-
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+<style>
+  .about-header {
+    background-color: #0066cc;
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+  }
+  
+  .about-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .about-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 2px 2px 0 #000;
+  }
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .about-section {
+    margin-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #0066cc;
+    text-align: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-content {
+    line-height: 1.6;
+  }
+  
+  .section-content p {
+    margin-bottom: 1rem;
+  }
+  
+  .about-image {
+    margin: 2rem 0;
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .pixelated-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+  
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  .coverage-item {
+    background-color: #f0f8ff;
+    border: 3px solid #000;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .coverage-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .coverage-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #0066cc;
+  }
+  
+  .coverage-desc {
+    font-size: 0.9rem;
+  }
+  
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: #f0f8ff;
+    border: 2px solid #0066cc;
+  }
+  
+  .contact-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+  
+  .contact-text {
+    font-size: 0.9rem;
+  }
+  
+  @media (max-width: 768px) {
+    .about-title {
+      font-size: 2rem;
+    }
+    
+    .coverage-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

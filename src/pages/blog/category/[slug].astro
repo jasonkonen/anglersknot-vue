@@ -1,0 +1,80 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { BlogList } from '../../../components/vue';
+import { getPosts, getCategories } from '../../../lib/wordpress';
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    params: { slug: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const posts = await getPosts(100, category.slug);
+
+const title = `${category.name} | Angler's Knot`;
+const description = `Browse all posts in the ${category.name} category.`;
+---
+
+<MainLayout title={title} description={description}>
+  <div class="category-header">
+    <h1 class="category-title">Category: {category.name}</h1>
+    <p class="category-description">Browse all posts in this category</p>
+  </div>
+  
+  <div class="content-container">
+    <BlogList posts={posts} title={`${category.name} Posts`} client:load />
+    
+    <div class="category-navigation">
+      <a href="/blog/" class="back-link">← Back to Blog</a>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .category-header {
+    background-color: #0066cc;
+    color: white;
+    padding: 3rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+  }
+  
+  .category-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .category-description {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 2px 2px 0 #000;
+  }
+  
+  .category-navigation {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .back-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .back-link:hover {
+    transform: translateY(-3px);
+  }
+</style>
