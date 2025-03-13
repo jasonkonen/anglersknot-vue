@@ -1,8 +1,11 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { getPageBySlug } from '../lib/wordpress';
 
 const title = "Fishing Shows | Angler's Knot";
 const description = "Discover the best fishing TV shows, documentaries, and YouTube channels for anglers of all interests.";
+
+const page = await getPageBySlug('shows');
 ---
 
 <MainLayout title={title} description={description}>
@@ -13,249 +16,18 @@ const description = "Discover the best fishing TV shows, documentaries, and YouT
   
   <div class="content-container">
     <div class="page-content">
-      <section class="intro-section">
-        <p>
-          Fishing shows offer entertainment, education, and inspiration for anglers of all skill levels. Whether you're looking to learn new techniques, explore exotic fishing destinations, or simply enjoy the thrill of the catch from the comfort of your couch, there's a fishing show out there for you.
-        </p>
-        <p>
-          We've compiled a list of our favorite fishing TV shows, documentaries, and YouTube channels that showcase the best of fishing entertainment.
-        </p>
-      </section>
-      
-      <section class="shows-section">
-        <h2 class="section-title">TV Shows</h2>
-        <div class="shows-grid">
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/river-monsters.png" alt="River Monsters" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">River Monsters</h3>
-              <p class="show-desc">
-                Follow biologist and extreme angler Jeremy Wade as he investigates freshwater mysteries and catches legendary fish around the world.
-              </p>
-              <div class="show-meta">
-                <span class="show-network">Animal Planet</span>
-                <span class="show-rating">★★★★★</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/wicked-tuna.png" alt="Wicked Tuna" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">Wicked Tuna</h3>
-              <p class="show-desc">
-                Follow commercial fishermen as they battle to catch the valuable bluefin tuna in the competitive waters of the North Atlantic.
-              </p>
-              <div class="show-meta">
-                <span class="show-network">National Geographic</span>
-                <span class="show-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/fishing-with-roland-martin.png" alt="Fishing with Roland Martin" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">Fishing with Roland Martin</h3>
-              <p class="show-desc">
-                A classic fishing show featuring legendary angler Roland Martin sharing his expertise and techniques for catching bass.
-              </p>
-              <div class="show-meta">
-                <span class="show-network">Outdoor Channel</span>
-                <span class="show-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="shows-section">
-        <h2 class="section-title">Documentaries</h2>
-        <div class="shows-grid">
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/the-blue-planet.png" alt="The Blue Planet" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">The Blue Planet</h3>
-              <p class="show-desc">
-                Sir David Attenborough's stunning documentary series exploring the world's oceans and the incredible diversity of marine life.
-              </p>
-              <div class="show-meta">
-                <span class="show-network">BBC</span>
-                <span class="show-rating">★★★★★</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/artifishal.png" alt="Artifishal" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">Artifishal</h3>
-              <p class="show-desc">
-                A thought-provoking documentary about the impact of fish hatcheries and fish farms on wild salmon populations.
-              </p>
-              <div class="show-meta">
-                <span class="show-network">Patagonia</span>
-                <span class="show-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/the-last-fish.png" alt="The Last Fish" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">The Last Fish</h3>
-              <p class="show-desc">
-                An eye-opening documentary about overfishing and its impact on marine ecosystems and fishing communities worldwide.
-              </p>
-              <div class="show-meta">
-                <span class="show-network">PBS</span>
-                <span class="show-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="shows-section">
-        <h2 class="section-title">YouTube Channels</h2>
-        <div class="shows-grid">
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/tactical-bassin.png" alt="Tactical Bassin" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">Tactical Bassin</h3>
-              <p class="show-desc">
-                In-depth tutorials and gear reviews focused on bass fishing techniques and strategies for anglers of all skill levels.
-              </p>
-              <div class="show-meta">
-                <span class="show-platform">YouTube</span>
-                <span class="show-rating">★★★★★</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/fishing-with-ndyakira.png" alt="Fishing with NDYakira" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">Fishing with NDYakira</h3>
-              <p class="show-desc">
-                Kayak fishing adventures featuring beautiful locations, helpful tips, and exciting catches from a unique perspective.
-              </p>
-              <div class="show-meta">
-                <span class="show-platform">YouTube</span>
-                <span class="show-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="show-card">
-            <div class="show-image">
-              <img src="/shows/fishermans-life.png" alt="Fisherman's Life" class="pixelated-image" />
-            </div>
-            <div class="show-content">
-              <h3 class="show-title">Fisherman's Life</h3>
-              <p class="show-desc">
-                Diverse fishing content including catch and cook videos, fishing challenges, and adventures in various fishing environments.
-              </p>
-              <div class="show-meta">
-                <span class="show-platform">YouTube</span>
-                <span class="show-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="streaming-section">
-        <h2 class="section-title">Where to Watch</h2>
-        <div class="streaming-content">
+      {page ? (
+        <article set:html={page.content} />
+      ) : (
+        <section class="intro-section">
           <p>
-            Many fishing shows are available on popular streaming platforms. Here's where you can find some of the best fishing content:
+            Fishing shows offer entertainment, education, and inspiration for anglers of all skill levels. Whether you're looking to learn new techniques, explore exotic fishing destinations, or simply enjoy the thrill of the catch from the comfort of your couch, there's a fishing show out there for you.
           </p>
-          <div class="streaming-grid">
-            <div class="streaming-card">
-              <h3 class="streaming-title">Netflix</h3>
-              <ul class="streaming-list">
-                <li>Fish People</li>
-                <li>Chasing Monsters</li>
-                <li>MeatEater (includes fishing episodes)</li>
-              </ul>
-            </div>
-            
-            <div class="streaming-card">
-              <h3 class="streaming-title">Amazon Prime</h3>
-              <ul class="streaming-list">
-                <li>River Monsters</li>
-                <li>Fishing Adventurer</li>
-                <li>The Obsession of Carter Andrews</li>
-              </ul>
-            </div>
-            
-            <div class="streaming-card">
-              <h3 class="streaming-title">Discovery+</h3>
-              <ul class="streaming-list">
-                <li>Deadliest Catch</li>
-                <li>Wicked Tuna</li>
-                <li>Monster Fish</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="classic-section">
-        <h2 class="section-title">Classic Fishing Shows</h2>
-        <div class="classic-content">
           <p>
-            These pioneering fishing shows helped shape fishing entertainment and education on television:
+            We've compiled a list of our favorite fishing TV shows, documentaries, and YouTube channels that showcase the best of fishing entertainment.
           </p>
-          <ul class="classic-list">
-            <li class="classic-item">
-              <strong>The American Sportsman (1965-1986)</strong> - One of the first popular outdoor sports shows that frequently featured fishing segments.
-            </li>
-            <li class="classic-item">
-              <strong>The Fishin' Hole with Jerry McKinnis (1979-2007)</strong> - A long-running freshwater fishing show known for its educational approach.
-            </li>
-            <li class="classic-item">
-              <strong>Bill Dance Outdoors (1968-Present)</strong> - The iconic show featuring Bill Dance's bass fishing expertise and humorous bloopers.
-            </li>
-            <li class="classic-item">
-              <strong>Fishing with Roland Martin (1974-2008)</strong> - Featuring the legendary angler sharing his bass fishing techniques.
-            </li>
-            <li class="classic-item">
-              <strong>Spanish Fly with Jose Wejebe (1995-2012)</strong> - A pioneering saltwater fishing show known for its cinematic quality and conservation message.
-            </li>
-          </ul>
-        </div>
-      </section>
-      
-      <section class="blog-section">
-        <h2 class="section-title">Related Blog Posts</h2>
-        <p class="blog-intro">
-          Check out our blog for more in-depth reviews, episode guides, and news about fishing shows:
-        </p>
-        <div class="blog-links">
-          <a href="/blog/category/shows/" class="blog-link">
-            <span class="link-icon">📝</span>
-            <span class="link-text">All Fishing Show Articles</span>
-          </a>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   </div>
 </MainLayout>

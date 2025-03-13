@@ -26,6 +26,14 @@ interface WordPressPost {
   categories: WordPressCategory;
 }
 
+interface WordPressPage {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  featuredImage: WordPressImage;
+}
+
 interface PostsResponse {
   posts: {
     nodes: WordPressPost[];
@@ -34,6 +42,10 @@ interface PostsResponse {
 
 interface PostResponse {
   post: WordPressPost;
+}
+
+interface PageResponse {
+  page: WordPressPage;
 }
 
 interface CategoriesResponse {
@@ -179,4 +191,36 @@ export async function getCategories() {
  */
 export async function searchPosts(searchTerm: string) {
   return getPosts(100, '', searchTerm);
+}
+
+/**
+ * Fetch a single page by slug
+ * @param {string} slug - Page slug
+ * @returns {Promise<WordPressPage | null>} - WordPress page
+ */
+export async function getPageBySlug(slug: string) {
+  const query = gql`
+    query GetPageBySlug($slug: ID!) {
+      page(id: $slug, idType: URI) {
+        id
+        title
+        slug
+        content
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const data = await request<PageResponse>(WORDPRESS_API_URL, query, { slug });
+    return data.page;
+  } catch (error) {
+    console.error('Error fetching page:', error);
+    return null;
+  }
 }

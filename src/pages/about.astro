@@ -1,8 +1,11 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { getPageBySlug } from '../lib/wordpress';
 
 const title = "About | Angler's Knot";
 const description = "Learn more about Angler's Knot, a blog dedicated to fishing, fishing video games, board games, and shows.";
+
+const page = await getPageBySlug('about');
 ---
 
 <MainLayout title={title} description={description}>
@@ -13,94 +16,24 @@ const description = "Learn more about Angler's Knot, a blog dedicated to fishing
   
   <div class="content-container">
     <div class="about-content">
-      <section class="about-section">
-        <h2 class="section-title">Our Story</h2>
-        <div class="section-content">
-          <p>
-            Welcome to Angler's Knot, a blog dedicated to all things fishing - both in the real world and in the digital realm. Founded by a group of passionate anglers who also happen to be gaming enthusiasts, we aim to be your go-to resource for fishing content across various media.
-          </p>
-          <p>
-            The name "Angler's Knot" represents the connection between different fishing worlds - from traditional fishing techniques to their representation in video games, board games, and television shows. Just like a well-tied knot connects an angler to their catch, we connect fishing enthusiasts to content they'll love.
-          </p>
-          <div class="about-image">
-            <img src="/about-image.png" alt="Pixelated fishing scene" class="pixelated-image" />
-          </div>
-        </div>
-      </section>
-      
-      <section class="about-section">
-        <h2 class="section-title">What We Cover</h2>
-        <div class="section-content">
-          <div class="coverage-grid">
-            <div class="coverage-item">
-              <div class="coverage-icon">🎣</div>
-              <h3 class="coverage-title">Fishing Tips & Techniques</h3>
-              <p class="coverage-desc">
-                From beginner guides to advanced techniques, we share practical fishing advice for anglers of all skill levels.
-              </p>
-            </div>
-            
-            <div class="coverage-item">
-              <div class="coverage-icon">🎮</div>
-              <h3 class="coverage-title">Fishing Video Games</h3>
-              <p class="coverage-desc">
-                Reviews, guides, and news about fishing video games across all platforms - PC, console, and mobile.
-              </p>
-            </div>
-            
-            <div class="coverage-item">
-              <div class="coverage-icon">🎲</div>
-              <h3 class="coverage-title">Fishing Board Games</h3>
-              <p class="coverage-desc">
-                Discover tabletop games that bring the thrill of fishing to your game night with friends and family.
-              </p>
-            </div>
-            
-            <div class="coverage-item">
-              <div class="coverage-icon">📺</div>
-              <h3 class="coverage-title">Fishing Shows</h3>
-              <p class="coverage-desc">
-                Reviews and recommendations of the best fishing shows, documentaries, and YouTube channels.
-              </p>
+      {page ? (
+        <article set:html={page.content} />
+      ) : (
+        <section class="about-section">
+          <h2 class="section-title">Our Story</h2>
+          <div class="section-content">
+            <p>
+              Welcome to Angler's Knot, a blog dedicated to all things fishing - both in the real world and in the digital realm. Founded by a group of passionate anglers who also happen to be gaming enthusiasts, we aim to be your go-to resource for fishing content across various media.
+            </p>
+            <p>
+              The name "Angler's Knot" represents the connection between different fishing worlds - from traditional fishing techniques to their representation in video games, board games, and television shows. Just like a well-tied knot connects an angler to their catch, we connect fishing enthusiasts to content they'll love.
+            </p>
+            <div class="about-image">
+              <img src="/about-image.png" alt="Pixelated fishing scene" class="pixelated-image" />
             </div>
           </div>
-        </div>
-      </section>
-      
-      <section class="about-section">
-        <h2 class="section-title">Our Team</h2>
-        <div class="section-content">
-          <p>
-            Angler's Knot is run by a small team of fishing enthusiasts who are passionate about sharing their knowledge and experiences with the community. We come from diverse backgrounds but are united by our love for fishing and gaming.
-          </p>
-          <p>
-            We're always looking to connect with fellow anglers and gaming enthusiasts. Feel free to reach out to us with questions, suggestions, or just to say hello!
-          </p>
-        </div>
-      </section>
-      
-      <section class="about-section">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="section-content">
-          <p>
-            Have a question, suggestion, or just want to say hello? We'd love to hear from you! You can reach us at:
-          </p>
-          <ul class="contact-list">
-            <li class="contact-item">
-              <span class="contact-icon">📧</span>
-              <span class="contact-text">Email: info@anglersknot.com</span>
-            </li>
-            <li class="contact-item">
-              <span class="contact-icon">🐦</span>
-              <span class="contact-text">Twitter: @anglersknot</span>
-            </li>
-            <li class="contact-item">
-              <span class="contact-icon">📱</span>
-              <span class="contact-text">Instagram: @anglersknot</span>
-            </li>
-          </ul>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   </div>
 </MainLayout>
