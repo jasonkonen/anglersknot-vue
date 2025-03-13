@@ -1,0 +1,60 @@
+---
+import { getAllPages } from '../lib/wordpress';
+
+// Fetch all pages from WordPress
+const wpPages = await getAllPages();
+
+// Filter out pages we don't want to show in navigation
+// For example, we might want to exclude certain system pages
+const navigationPages = wpPages.filter(page => {
+  // Exclude pages with these slugs
+  const excludedSlugs = ['privacy-policy', 'terms-of-service'];
+  return !excludedSlugs.includes(page.slug);
+});
+
+// Sort pages by title
+navigationPages.sort((a, b) => a.title.localeCompare(b.title));
+---
+
+<div class="page-navigation">
+  {navigationPages.map(page => {
+    // Remove leading slash if present
+    const pageUrl = page.uri?.replace(/^\//, '') || page.slug;
+    return (
+      <a href={`/${pageUrl}/`} class="nav-link">{page.title}</a>
+    );
+  })}
+</div>
+
+<style>
+  .page-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0;
+    justify-content: center;
+  }
+  
+  .nav-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border: 3px solid #000;
+    font-weight: bold;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-link:hover {
+    transform: translateY(-3px);
+  }
+  
+  @media (max-width: 768px) {
+    .page-navigation {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

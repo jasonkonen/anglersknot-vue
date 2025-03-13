@@ -30,6 +30,7 @@ interface WordPressPage {
   id: string;
   title: string;
   slug: string;
+  uri?: string;
   content: string;
   featuredImage: WordPressImage;
 }
@@ -194,6 +195,40 @@ export async function searchPosts(searchTerm: string) {
 }
 
 /**
+ * Fetch all pages from WordPress
+ * @returns {Promise<WordPressPage[]>} - WordPress pages
+ */
+export async function getAllPages() {
+  const query = gql`
+    query GetAllPages {
+      pages(first: 100) {
+        nodes {
+          id
+          title
+          slug
+          uri
+          content
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const data = await request<{ pages: { nodes: WordPressPage[] } }>(WORDPRESS_API_URL, query);
+    return data.pages.nodes;
+  } catch (error) {
+    console.error('Error fetching pages:', error);
+    return [];
+  }
+}
+
+/**
  * Fetch a single page by slug
  * @param {string} slug - Page slug
  * @returns {Promise<WordPressPage | null>} - WordPress page
@@ -205,6 +240,7 @@ export async function getPageBySlug(slug: string) {
         id
         title
         slug
+        uri
         content
         featuredImage {
           node {

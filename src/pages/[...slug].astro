@@ -1,0 +1,139 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getAllPages, getPageBySlug } from '../lib/wordpress';
+
+export async function getStaticPaths() {
+  const pages = await getAllPages();
+  
+  // Create a path for each WordPress page
+  return pages.map(page => {
+    // Remove leading slash if present
+    const slug = page.uri?.replace(/^\//, '') || page.slug;
+    
+    return {
+      params: { slug },
+      props: { page }
+    };
+  });
+}
+
+const { page: propPage } = Astro.props;
+const { slug } = Astro.params;
+
+// If we don't have the page from getStaticPaths (e.g., in dev mode or SSR),
+// fetch it directly
+const page = propPage || await getPageBySlug(slug);
+
+// Default title and description if page not found
+const title = page?.title || "Page Not Found | Angler's Knot";
+const description = "Explore fishing content on Angler's Knot";
+---
+
+<MainLayout title={title} description={description}>
+  {page ? (
+    <div class="page-container">
+      <div class="page-header">
+        <h1 class="page-title">{page.title}</h1>
+      </div>
+      
+      <div class="content-container">
+        <div class="page-content">
+          <article set:html={page.content} />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="page-container">
+      <div class="page-header">
+        <h1 class="page-title">Page Not Found</h1>
+      </div>
+      
+      <div class="content-container">
+        <div class="page-content">
+          <p>Sorry, the page you're looking for doesn't exist or hasn't been created in WordPress yet.</p>
+          <p>Please check the URL or navigate to another page using the menu above.</p>
+        </div>
+      </div>
+    </div>
+  )}
+</MainLayout>
+
+<style>
+  .page-container {
+    width: 100%;
+  }
+  
+  .page-header {
+    background-color: #0066cc;
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    line-height: 1.6;
+  }
+  
+  .page-content :global(h2) {
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    color: #0066cc;
+  }
+  
+  .page-content :global(h3) {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    color: #0066cc;
+  }
+  
+  .page-content :global(p) {
+    margin-bottom: 1rem;
+  }
+  
+  .page-content :global(ul), .page-content :global(ol) {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  .page-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border: 4px solid #000;
+    margin: 1.5rem 0;
+    image-rendering: pixelated;
+  }
+  
+  .page-content :global(blockquote) {
+    border-left: 4px solid #0066cc;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+  
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2rem;
+    }
+  }
+</style>

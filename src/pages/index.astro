@@ -1,9 +1,16 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { BlogList } from '../components/vue';
-import { getPosts } from '../lib/wordpress';
+import PageNavigation from '../components/PageNavigation.astro';
+import { getPosts, getAllPages } from '../lib/wordpress';
 
 const posts = await getPosts(6);
+const pages = await getAllPages();
+
+// Find specific pages for featured sections
+const videoGamesPage = pages.find(page => page.slug === 'video-games' || page.slug === 'fishing-video-games');
+const boardGamesPage = pages.find(page => page.slug === 'board-games' || page.slug === 'fishing-board-games');
+const showsPage = pages.find(page => page.slug === 'shows' || page.slug === 'fishing-shows');
 ---
 
 <MainLayout>
@@ -46,24 +53,35 @@ const posts = await getPosts(6);
     <section class="featured-sections">
       <h2 class="section-title">Explore More</h2>
       <div class="featured-grid">
-        <a href="/fishing-video-games/" class="featured-card">
-          <div class="card-icon">🎮</div>
-          <h3 class="card-title">Fishing Video Games</h3>
-          <p class="card-desc">Discover the best fishing video games across all platforms</p>
-        </a>
+        {videoGamesPage && (
+          <a href={`/${videoGamesPage.uri?.replace(/^\//, '') || videoGamesPage.slug}/`} class="featured-card">
+            <div class="card-icon">🎮</div>
+            <h3 class="card-title">{videoGamesPage.title}</h3>
+            <p class="card-desc">Discover the best fishing video games across all platforms</p>
+          </a>
+        )}
         
-        <a href="/fishing-board-games/" class="featured-card">
-          <div class="card-icon">🎲</div>
-          <h3 class="card-title">Fishing Board Games</h3>
-          <p class="card-desc">Tabletop games that bring the thrill of fishing to your game night</p>
-        </a>
+        {boardGamesPage && (
+          <a href={`/${boardGamesPage.uri?.replace(/^\//, '') || boardGamesPage.slug}/`} class="featured-card">
+            <div class="card-icon">🎲</div>
+            <h3 class="card-title">{boardGamesPage.title}</h3>
+            <p class="card-desc">Tabletop games that bring the thrill of fishing to your game night</p>
+          </a>
+        )}
         
-        <a href="/fishing-shows/" class="featured-card">
-          <div class="card-icon">📺</div>
-          <h3 class="card-title">Fishing Shows</h3>
-          <p class="card-desc">Our favorite TV shows and documentaries about fishing</p>
-        </a>
+        {showsPage && (
+          <a href={`/${showsPage.uri?.replace(/^\//, '') || showsPage.slug}/`} class="featured-card">
+            <div class="card-icon">📺</div>
+            <h3 class="card-title">{showsPage.title}</h3>
+            <p class="card-desc">Our favorite TV shows and documentaries about fishing</p>
+          </a>
+        )}
       </div>
+    </section>
+    
+    <section class="wordpress-pages">
+      <h2 class="section-title">WordPress Pages</h2>
+      <PageNavigation />
     </section>
   </div>
 </MainLayout>
